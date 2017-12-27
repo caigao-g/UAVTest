@@ -1,0 +1,2 @@
+this is a text used to test git
+"hello git"

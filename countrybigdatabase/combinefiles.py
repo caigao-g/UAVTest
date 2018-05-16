@@ -17,9 +17,9 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-Folder_Path = r'F:/countrybigdatabase/countyfiles'
+Folder_Path = r'F:/countrybigdatabase/qingdao'
 SaveFile_Path = r'F:/countrybigdatabase/combine'
-SaveFile_Name = r'shandong.csv'  # 合并后要保存的文件名
+SaveFile_Name = r'qingdao.csv'  # 合并后要保存的文件名
 
 # 修改当前工作目录
 os.chdir(Folder_Path)

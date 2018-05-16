@@ -67,7 +67,7 @@ def random_read_file(questions_path,answers_path): #随机训练
 		exit(0)
 
 	answernum = 1
-	maxline = len((open(questions)).readlines())
+	maxline = len((open(questions_path)).readlines())
 	# print maxline
 	questionnum = random.randint(1,maxline)
 	while questionnum > 0:
@@ -177,7 +177,7 @@ def wrong_review(questions_path,answers_path): #复习错题
 				if mb == 'EXIT':
 					exit(0)
 
-def practice_exam(questions_path,answers_path,n=100): #模拟考试
+def practice_exam(questions_path,answers_path,n=100,p=80): #模拟考试
 	try:
 		with open(questions_path, 'r') as f:
 			print '正在抽取试题'
@@ -185,7 +185,7 @@ def practice_exam(questions_path,answers_path,n=100): #模拟考试
 		print '题库不存在'
 		exit(0)
 
-	print '考试开始'
+	print '考试开始,开始计时'
 	time_start = time.time()
 	maxline = len((open(questions_path)).readlines())+1
 	random_list = random.sample([x for x in range(1,maxline)],n) #默认随机选择100道题作为考试内容
@@ -199,17 +199,31 @@ def practice_exam(questions_path,answers_path,n=100): #模拟考试
 		real_answer = linecache.getline(answers_path, i)
 		if real_answer == str.upper(answer):
 			points += 1
-			# print '回答正确。'
+			print '回答正确。'
 
 		else:
 			wrongback(question, real_answer)
-			# print '回答错误。'
+			print '回答错误,正确答案是 ', real_answer
 		j += 1
+		time_run = (time.time() - time_start) / 60
+		if time_run >= 120:
+			print '答题时间到，考试结束。'
+			print '总分 {} 分'.format(points)
+			if points >= p:
+				print '考试合格，再接再厉\n'
+			else:
+				print '考试不合格，请继续练习\n'
+
+			break
+
 		if j == n+1:
-			time_run = (time.time() - time_start)/60
+
 			print '答题结束，总分 {} 分'.format(points)
 			print '耗时 {:d} 分钟\n'.format(int(time_run))
-
+			if points >= p:
+				print '考试合格，再接再厉\n'
+			else:
+				print '考试不合格，请继续练习\n'
 
 
 def wrongback(question,answer): #记录答错的题目和正确答案
@@ -261,7 +275,7 @@ if __name__ == '__main__':
 			practice_exam(questions,answers)
 
 		elif choice == '5':
-			practice_exam(zonghe_questions,zonghe_answers,10) #抽取10题作为综合考试题目
+			practice_exam(zonghe_questions,zonghe_answers,10,7) #抽取10题作为综合考试题目
 
 		elif choice =='EXIT':
 			exit(0)

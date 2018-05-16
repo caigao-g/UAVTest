@@ -60,7 +60,7 @@ def get_country_list(url): # 获得本镇（乡，街道）的村委会（社区
 
 
 
-url_seed = 'http://www.o994.cn/Info.asp?dm=1309' # 山东省 济南
+url_seed = 'http://www.o994.cn/Info.asp?dm=3307' # 山东省 济南
 url_list = get_member_url(url_seed)
 
 for url in url_list:
